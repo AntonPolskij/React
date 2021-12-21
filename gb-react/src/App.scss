@@ -1,0 +1,25 @@
+.container {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 10px 0;
+    height:90vh;
+}
+.msg__container {
+    flex-grow: 1;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.chatList__container {
+    border: 1px solid black;
+}
+.chatList__container li {
+    padding: 30px;
+    border-bottom: 1px solid black;
+}
+.chatList__container li:not(:last-child){
+    margin-bottom: 25%;
+}
