@@ -3,7 +3,7 @@ import './MessageList.scss';
 
 const MessageList = ({messages}) => {
     return (
-        messages.map((message) => <p>{message.author} : {message.text}</p>)
+        messages.map((message) => <p key={message.id}>{message.author} : {message.text}</p>)
     );
 }
 
