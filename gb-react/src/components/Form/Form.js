@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import { TextField, Button } from '@mui/material';
 
 
-const Form = ({onSubmit,list}) => {
+const Form = ({onSubmit}) => {
     const [value, setValue] = useState('');
     const handleChange = (e) => {
         setValue(e.target.value);
@@ -20,7 +20,7 @@ const Form = ({onSubmit,list}) => {
     }, [])
     useEffect(() => {
         inputRef.current?.focus();
-    }, [list])
+    }, [onSubmit])
     return (
         <form onSubmit={handleSubmit}>
             <TextField required inputRef={inputRef} sx={{ width: '70%' }} size="small" value={value} onChange={handleChange} />
