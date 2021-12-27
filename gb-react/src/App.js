@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.scss';
 import Router from './components/Router/Router';
-
+import { Provider } from 'react-redux';
+import { store } from './store';
 function App() {
   return (
-    <div className="App">
-      <div className="container">
-          <Router />
-      </div>
-    </div>
+    <Provider store={store}>
+      <Router />
+    </Provider>
   );
 }
+
 
 export default App;

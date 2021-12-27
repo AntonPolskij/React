@@ -32,6 +32,7 @@ const initialMessages = initialChats.reduce((acc, chat) => {
 }, {});
 
 const Router = () => {
+    const [name,setName] = useState('default');
     const [chats, setChats] = useState(initialChats);
     const [messages, setMessages] = useState(initialMessages);
     const handleAddMessage = (newMessage, chatId) => {
@@ -61,7 +62,7 @@ const Router = () => {
             </ul>
             <Routes>
                 <Route path="/" element={<Home  />} />
-                <Route path="profile" element={<Profile/>} />
+                <Route path="profile" element={<Profile name={name} />} />
                 <Route path="chatList" element={<ChatList chats={chats}/>}>
                     <Route
                         path=":chatId"
