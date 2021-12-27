@@ -25,7 +25,7 @@ const Form = ({onSubmit}) => {
         <form onSubmit={handleSubmit}>
             <TextField required inputRef={inputRef} sx={{ width: '70%' }} size="small" value={value} onChange={handleChange} />
             <Button variant="contained" type="submit">
-                Send
+                Submit
             </Button>
         </form>
     )
