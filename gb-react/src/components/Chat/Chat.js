@@ -1,20 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import './Chat.scss';
-import { useParams,Navigate } from 'react-router';
+import { useParams, Navigate } from 'react-router';
 import Form from '../Form/Form';
 import MessageList from '../MessageList/MessageList';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../../store/messages/actions';
+import { selectMessage } from '../../store/messages/selectors';
 
-function Chat({ messages, onAddMessage }) {
+function Chat() {
     const { chatId } = useParams();
+    const messages = useSelector(selectMessage);
+    const dispatch = useDispatch();
     const handleAddMessage = (text) => {
         const newMessage = { text, author: 'Human', id: `msg-${Date.now()}` };
-        onAddMessage(newMessage, chatId);
+        dispatch(addMessage(newMessage, chatId));
     }
     useEffect(() => {
         if (messages[chatId]?.[messages[chatId].length - 1]?.author === 'Human') {
             setTimeout(() => {
                 const newMessage = { text: "Сообщение отправлено", author: 'Bot', id: `msg-${Date.now()}` };
-                onAddMessage(newMessage, chatId);
+                dispatch(addMessage(newMessage, chatId));
             }, 1000);
         }
     }, [messages[chatId]])
