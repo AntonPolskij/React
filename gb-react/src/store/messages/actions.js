@@ -8,3 +8,26 @@ export const addMessage = (newMessage, chatId) => ({
         chatId,
     },
 });
+
+let timeout;
+
+export const addMessageWithReply = (newMessage, chatId) => (dispatch) => {
+    dispatch(addMessage(newMessage, chatId));
+
+    clearTimeout(timeout);
+
+    if (newMessage.author !== "Bot") {
+        timeout = setTimeout(() => {
+            dispatch(
+                addMessage(
+                    {
+                        text: "Сообщение отправлено",
+                        author: "Bot",
+                        id: `msg-${Date.now()}`,
+                    },
+                    chatId
+                )
+            );
+        }, 1000);
+    }
+};

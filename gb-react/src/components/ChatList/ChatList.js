@@ -3,8 +3,9 @@ import Form from '../Form/Form';
 import { useDispatch, useSelector } from "react-redux";
 import { List, ListItem } from '@mui/material';
 import { Link, Outlet } from "react-router-dom";
-import { addChat } from "../../store/chats/actions.js"
+import { addChat, deleteChat } from "../../store/chats/actions.js"
 import { selectChats } from '../../store/chats/selectors';
+import { ChatItem } from './ChatItem/ChatItem';
 
 const ChatList = () => {
     const chats = useSelector(selectChats);
@@ -17,11 +18,14 @@ const ChatList = () => {
         };
         dispatch(addChat(newChat))
     };
+    const handleDeleteChat = (id) =>{
+        dispatch(deleteChat(id));
+    }
     return (
         <>
             <div className="chatList__container">
                 <List>
-                    {chats.map((chat) => <ListItem alignItems="center" key={chat.id}><Link to={`${chat.id}`}>{chat.name}</Link> </ListItem>)}
+                    {chats.map((chat) => <ChatItem key={chat.id} chat={chat} onDelete={handleDeleteChat} />)}
                 </List>
                 <Outlet />
             </div>
