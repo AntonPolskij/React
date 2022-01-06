@@ -5,7 +5,7 @@ import Form from '../Form/Form';
 import MessageList from '../MessageList/MessageList';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addMessage } from '../../store/messages/actions';
+import { addMessage, addMessageWithReply } from '../../store/messages/actions';
 import { selectMessage } from '../../store/messages/selectors';
 
 function Chat() {
@@ -14,16 +14,8 @@ function Chat() {
     const dispatch = useDispatch();
     const handleAddMessage = (text) => {
         const newMessage = { text, author: 'Human', id: `msg-${Date.now()}` };
-        dispatch(addMessage(newMessage, chatId));
+        dispatch(addMessageWithReply(newMessage, chatId));
     }
-    useEffect(() => {
-        if (messages[chatId]?.[messages[chatId].length - 1]?.author === 'Human') {
-            setTimeout(() => {
-                const newMessage = { text: "Сообщение отправлено", author: 'Bot', id: `msg-${Date.now()}` };
-                dispatch(addMessage(newMessage, chatId));
-            }, 1000);
-        }
-    }, [messages[chatId]])
 
     if (!messages[chatId]) {
         return <Navigate to="/chatList" replace />;
