@@ -1,4 +1,4 @@
-import { List, ListItem } from '@mui/material';
+import { ListItem } from '@mui/material';
 import { Link } from "react-router-dom";
 
 export const ChatItem = ({ chat, onDelete }) => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import Form from '../Form/Form';
 import { useDispatch, useSelector } from "react-redux";
-import { List, ListItem } from '@mui/material';
-import { Link, Outlet } from "react-router-dom";
+import { List } from '@mui/material';
+import { Outlet } from "react-router-dom";
 import { addChat, deleteChat } from "../../store/chats/actions.js"
 import { selectChats } from '../../store/chats/selectors';
 import { ChatItem } from './ChatItem/ChatItem';

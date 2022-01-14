@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import Home from '../Home/Home';
 import Profile from '../Profile/Profile';
 import ChatList from '../ChatList/ChatList';
 import './Router.scss';
 import Chat from '../Chat/Chat';
+import { News } from '../News/News';
 
 const Router = () => {
     return (
@@ -25,6 +26,11 @@ const Router = () => {
                         Chats
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink to="news">
+                        News
+                    </NavLink>
+                </li>
             </ul>
             <Routes>
                 <Route path="/" element={<Home />} />
@@ -37,6 +43,7 @@ const Router = () => {
                         }
                     />
                 </Route>
+                <Route path="news" element={<News />} />
             </Routes>
         </BrowserRouter>
     );
