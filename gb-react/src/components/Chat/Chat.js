@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './Chat.scss';
 import { useParams, Navigate } from 'react-router';
 import Form from '../Form/Form';
 import MessageList from '../MessageList/MessageList';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import { addMessage, addMessageWithReply } from '../../store/messages/actions';
+import { addMessageWithReply } from '../../store/messages/actions';
 import { selectMessage } from '../../store/messages/selectors';
+import { selectUserName } from '../../store/profile/selectors'
 
 function Chat() {
     const { chatId } = useParams();
     const messages = useSelector(selectMessage);
+    const name = useSelector(selectUserName);
     const dispatch = useDispatch();
     const handleAddMessage = (text) => {
-        const newMessage = { text, author: 'Human', id: `msg-${Date.now()}` };
+        const newMessage = { text, author: name, id: `msg-${Date.now()}` };
         dispatch(addMessageWithReply(newMessage, chatId));
     }
 
