@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Form from '../Form/Form';
 import { useDispatch, useSelector } from "react-redux";
 import { List } from '@mui/material';
@@ -10,6 +10,8 @@ import { ChatItem } from './ChatItem/ChatItem';
 const ChatList = () => {
     const chats = useSelector(selectChats);
     const dispatch = useDispatch();
+
+
     const addNewChat = (newChatName) => {
         const newId = `chat${Date.now()}`;
         const newChat = {

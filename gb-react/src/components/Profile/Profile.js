@@ -1,27 +1,96 @@
-import React from 'react';
-import Form from '../Form/Form';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { setName, toggleShowName } from '../../store/profile/actions';
-import { selectShowName, selectUserName } from '../../store/profile/selectors';
+import { useEffect, useState } from "react";
+import {
+    connect,
+    // useDispatch, useSelector, shallowEqual
+} from "react-redux";
+import { onValue, set } from "firebase/database";
 
-const Profile = () => {
-    const name = useSelector(selectUserName);
-    const showName = useSelector(selectShowName);
-    const dispatch = useDispatch();
-    const setShowName = () => {
-        dispatch(toggleShowName);
-    }
-    const handleSubmit = (newName) => {
-        dispatch(setName(newName));
+import {
+    logOut,
+    userNameRef,
+    userRef,
+    userShowNameRef,
+} from "../../service/firebase";
+import {
+    initUserData,
+    setName,
+    setNameInDB,
+    setShowNameInDB,
+    signOut,
+    toggleName,
+} from "../../store/profile/actions";
+import Form from "../Form/Form";
+// import { selectShowName, selectUserName } from "../../store/profile/selectors";
+
+
+// const Profile = () => {
+//   const showName = useSelector(selectShowName, shallowEqual);
+//   const userName = useSelector(selectUserName, shallowEqual);
+//   const dispatch = useDispatch();
+
+//   const handleChange = () => {
+//     dispatch(toggleName);
+//   };
+
+//   const handleSubmit = (newName) => {
+//     dispatch(setName(newName));
+//   };
+
+//   return (
+//     <>
+//       <h3>THIS IS PROFILE</h3>
+//       <input type="checkbox" checked={showName} onChange={handleChange} />
+//       {showName && <span>{userName}</span>}
+//       <Form onSubmit={handleSubmit} />
+//     </>
+//   );
+// };
+
+// export default Profile;
+
+const ProfileForConnect = ({
+    showName,
+    userName,
+    changeName,
+    toggleShowName,
+    connectToDb,
+}) => {
+    useEffect(() => {
+        connectToDb();
+    }, []);
+
+    const handleChange = (e) => {
+        toggleShowName(e.target.checked);
     };
+
+    const handleSubmit = (newName) => {
+        changeName(newName);
+    };
+
     return (
-        <div className='Profile'>
-            <h2>Profile</h2>
-            <input type="checkbox" checked={showName} onChange={setShowName} />
-            {showName && <span>{name}</span>}
+        <>
+            <h3>THIS IS PROFILE</h3>
+            <button onClick={logOut}>SignOut</button>
+            <input type="checkbox" checked={showName} onChange={handleChange} />
+            {showName && <span>{userName}</span>}
             <Form onSubmit={handleSubmit} />
-        </div>
-    )
-}
-export default Profile;
+        </>
+    );
+};
+
+const mapStateToProps = (state) => ({
+    showName: state.profile.showName,
+    userName: state.profile.name,
+});
+
+const mapDispatchToProps = {
+    changeName: setNameInDB,
+    toggleShowName: setShowNameInDB,
+    connectToDb: initUserData,
+};
+
+const ConnectedProfile = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(ProfileForConnect);
+export default ConnectedProfile;
