@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 import { Home } from '../Home/Home';
 import Profile from '../Profile/Profile';
-import ChatList from '../ChatList/ChatList';
+import { ChatList } from '../ChatList/ChatList';
 import './Router.scss';
 import Chat from '../Chat/Chat';
 import { News } from '../News/News';
@@ -31,7 +31,7 @@ const Router = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="chatList">
+                    <NavLink to="chats">
                         Chats
                     </NavLink>
                 </li>
@@ -49,7 +49,7 @@ const Router = () => {
                 <Route path="profile" element={<PrivateOutlet />}>
                     <Route path="" element={<Profile />} />
                 </Route>
-                <Route path="chatList" element={<PrivateOutlet />}>
+                <Route path="chats" element={<PrivateOutlet />}>
                     <Route path="" element={<ChatList />}>
                         <Route
                             path=":chatId"
