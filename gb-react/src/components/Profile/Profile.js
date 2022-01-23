@@ -1,52 +1,8 @@
-import { useEffect, useState } from "react";
-import {
-    connect,
-    // useDispatch, useSelector, shallowEqual
-} from "react-redux";
-import { onValue, set } from "firebase/database";
-
-import {
-    logOut,
-    userNameRef,
-    userRef,
-    userShowNameRef,
-} from "../../service/firebase";
-import {
-    initUserData,
-    setName,
-    setNameInDB,
-    setShowNameInDB,
-    signOut,
-    toggleName,
-} from "../../store/profile/actions";
+import { useEffect } from "react";
+import { connect } from "react-redux";
+import { logOut } from "../../service/firebase";
+import { initUserData, setNameInDB, setShowNameInDB, } from "../../store/profile/actions";
 import Form from "../Form/Form";
-// import { selectShowName, selectUserName } from "../../store/profile/selectors";
-
-
-// const Profile = () => {
-//   const showName = useSelector(selectShowName, shallowEqual);
-//   const userName = useSelector(selectUserName, shallowEqual);
-//   const dispatch = useDispatch();
-
-//   const handleChange = () => {
-//     dispatch(toggleName);
-//   };
-
-//   const handleSubmit = (newName) => {
-//     dispatch(setName(newName));
-//   };
-
-//   return (
-//     <>
-//       <h3>THIS IS PROFILE</h3>
-//       <input type="checkbox" checked={showName} onChange={handleChange} />
-//       {showName && <span>{userName}</span>}
-//       <Form onSubmit={handleSubmit} />
-//     </>
-//   );
-// };
-
-// export default Profile;
 
 const ProfileForConnect = ({
     showName,

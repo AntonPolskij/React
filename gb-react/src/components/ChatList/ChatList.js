@@ -1,40 +1,41 @@
-import React, { useState } from 'react';
-import Form from '../Form/Form';
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { List } from '@mui/material';
 import { Outlet } from "react-router-dom";
-import { addChat, deleteChat } from "../../store/chats/actions.js"
-import { selectChats } from '../../store/chats/selectors';
-import { ChatItem } from './ChatItem/ChatItem';
+import {
+    addChatWithFb,
+    deleteChatWithFb,
+    initChatsTracking,
+} from "../../store/chats/actions";
+import { initMsgsTracking } from "../../store/messages/actions";
+import  Form  from "../Form/Form";
+import { ChatItem } from "./ChatItem/ChatItem";
 
-const ChatList = () => {
-    const chats = useSelector(selectChats);
+export const ChatList = () => {
+    const chats = useSelector((state) => state.chats);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(initChatsTracking());
+        dispatch(initMsgsTracking());
+    }, []);
 
-    const addNewChat = (newChatName) => {
-        const newId = `chat${Date.now()}`;
-        const newChat = {
-            id: newId,
-            name: newChatName,
-        };
-        dispatch(addChat(newChat))
+    const onAddChat = (newChatName) => {
+        addChatWithFb(newChatName);
     };
-    const handleDeleteChat = (id) =>{
-        dispatch(deleteChat(id));
-    }
+
+    const handleDeleteChat = (id) => {
+        dispatch(deleteChatWithFb(id));
+    };
+
     return (
         <>
-            <div className="chatList__container">
-                <List>
-                    {chats.map((chat) => <ChatItem key={chat.id} chat={chat} onDelete={handleDeleteChat} />)}
-                </List>
-                <Outlet />
-            </div>
-            <Form onSubmit={addNewChat} />
+            <ul>
+                {chats.map((chat) => (
+                    <ChatItem key={chat.id} chat={chat} onDelete={handleDeleteChat} />
+                ))}
+                <Form onSubmit={onAddChat} />
+            </ul>
+            <Outlet />
         </>
     );
-}
-
-
-export default ChatList;
+};

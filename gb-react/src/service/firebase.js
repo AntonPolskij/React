@@ -10,6 +10,7 @@ import {
 } from "firebase/auth";
 import { getDatabase, ref } from "firebase/database";
 
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyC4rsN8LIJvVap0dwYsUU72ymZ2MGnOiWw",
@@ -40,3 +41,8 @@ export const logOut = async () => {
 export const userRef = ref(db, "user");
 export const userNameRef = ref(db, "user/name");
 export const userShowNameRef = ref(db, "user/showName");
+export const chatsRef = ref(db, "chats");
+export const msgsRef = ref(db, "messages");
+export const getChatRefById = (id) => ref(db,`chats/${id}`);
+export const getMsgsRefById = (chatId) => ref(db, `messages/${chatId}`);
+export const getMsgsListRefById = (chatId) => ref(db, `messages/${chatId}/messageList`);

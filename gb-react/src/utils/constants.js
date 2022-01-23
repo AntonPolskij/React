@@ -6,3 +6,8 @@ export const REQUEST_STATUS = {
     FAILURE: 2,
     SUCCESS: 3,
 };
+
+export const AUTHORS = {
+    HUMAN: "human",
+    BOT: "bot",
+};
